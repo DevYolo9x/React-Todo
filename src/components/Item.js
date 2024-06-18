@@ -1,7 +1,7 @@
-import React, { Component, useState, useRef } from 'react';
+import React from 'react';
 
 function Item(props) {
-  const {data} = props;
+  const {data, index} = props;
   var type = {
     0: 'Basic',
     1: 'Medium',
@@ -10,17 +10,17 @@ function Item(props) {
   
   var label = {
     0: 'label-primary',
-    1: 'label-process',
+    1: 'label-warning',
     2: 'label-danger',
   }
   return (
     <tr>
-      <td className="text-center">{data.id}</td>
+      <td className="text-center">{index+1}</td>
       <td>
         {data.name}
       </td>
       <td className="text-center">
-        <span className="label label-danger">{type[data.level]}</span>
+        <span className={'label ' + label[data.level]}>{type[data.level]}</span>
       </td>
       <td>
         <button type="button" className="btn btn-warning">

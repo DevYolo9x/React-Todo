@@ -1,22 +1,23 @@
+import { v4 as uuidv4 } from 'uuid';
 let items = [
     {
         id: 1,
-        name: "Title a",
+        name: uuidv4(),
         level: 0
     },
     {
         id: 2,
-        name: "Title b",
+        name: uuidv4(),
         level: 1
     },
     {
         id: 3,
-        name: "Title c",
+        name: uuidv4(),
         level: 2
     },
     {
         id: 4,
-        name: "Title d",
+        name: uuidv4(),
         level: 2
     }
 ]

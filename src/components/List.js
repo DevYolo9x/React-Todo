@@ -1,11 +1,11 @@
-import React, { Component, useState, useRef } from 'react';
+import React from 'react';
 import Item from './Item';
 import Task from '../mocks/Task';
 
 function List(props) {
   const listItem = props.items;
-  const itemPage = Task.map( (item, index) =>
-      <Item key={index} data={item} />
+  const itemPage = Task.map((item, index) =>
+    <Item key={index} data={item} index={index}/>
   )
   return (
     <div className="panel panel-success">
