@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 
 function Search() {
   const search = useRef(null);

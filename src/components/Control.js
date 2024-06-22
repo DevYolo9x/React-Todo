@@ -1,10 +1,24 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 
 
-function Control() {
+function Control(props) {
   const search = useRef(null);
   const task_name = useRef(null);
   const task_level = useRef(null);
+
+  const {isShowForm} = props;
+
+  let buttonForm = <button type="button" onClick={handleShowForm} className="btn btn-info btn-block"> Add Task </button>
+  if( isShowForm === true ) {
+    buttonForm = <button type="button" onClick={handleShowForm} className="btn btn-success btn-block"> Close Task </button>
+  }
+
+  function handleShowForm() {
+    if (props.onclickToggleForm) {
+      props.onclickToggleForm();
+    }
+  }
+
   return (
     <div className="row">
       {/* SEARCH : START */}
@@ -58,9 +72,7 @@ function Control() {
       {/* SORT : END */}
       {/* ADD : START */}
       <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-        <button type="button" className="btn btn-info btn-block">
-          Add Task
-        </button>
+        {buttonForm}
       </div>
       {/* ADD : END */}
     </div>

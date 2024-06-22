@@ -1,10 +1,17 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 
 
-function From() {
+function From(props) {
   const search = useRef(null);
   const task_name = useRef(null);
   const task_level = useRef(null);
+
+  function handleCancel() {
+    if( props.onclickCloseForm ) {
+      props.onclickCloseForm()
+    }
+  }
+
   return (
     <div className="row">
       <div className="col-md-offset-7 col-md-5">
@@ -39,7 +46,7 @@ function From() {
           <button type="button" className="btn btn-primary">
             Submit
           </button>
-          <button type="button" className="btn btn-default">
+          <button type="button" onClick={handleCancel} className="btn btn-default">
             Cancel
           </button>
         </form>
