@@ -8,6 +8,7 @@ import List from './components/List';
 function App() {
 
   const [isShowForm, setIsShowForm] = useState(false);
+  const [searchForm, setSearchForm] = useState('');
   let elForm = null;
 
   function handleToggleForm(){
@@ -18,8 +19,12 @@ function App() {
     setIsShowForm(false);
   }
 
+  function handleSearchForm() {
+    console.log(123);
+  }
+
   if( isShowForm ) {
-    elForm = <Form  onclickCloseForm={handleCloseForm} />
+    elForm = <Form onclickCloseForm={handleCloseForm} />
   }
   
   return (
@@ -29,6 +34,7 @@ function App() {
       {/* TITLE : END */}
       {/* CONTROL (SEARCH + SORT + ADD) : START */}
       <Control 
+        onclickSearchForm={handleSearchForm}
         onclickToggleForm={handleToggleForm}
         isShowForm={isShowForm}
       />

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Search from './Search';
 
 
 function Control(props) {
@@ -21,23 +22,8 @@ function Control(props) {
 
   return (
     <div className="row">
-      {/* SEARCH : START */}
-      <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            ref={search}
-            placeholder="Search for..."
-          />
-          <span className="input-group-btn">
-            <button className="btn btn-info" type="button">
-              Go!
-            </button>
-          </span>
-        </div>
-      </div>
-      {/* SEARCH : END */}
+
+      <Search />
       {/* SORT : START */}
       <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <div className="dropdown">
