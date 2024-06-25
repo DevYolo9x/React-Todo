@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
-function Search() {
+function Search(props) {
   const searchInput = useRef(null);
   const [strSearch, setStrSearch] = useState('');
 
+  let {onclickSearchForm} = props;
+
   function handleSearch() {
-    console.log(searchInput.current.value);
-    console.log(strSearch);
+    onclickSearchForm(searchInput.current.value);
   }
 
   function handleChange(event) {
@@ -15,6 +16,7 @@ function Search() {
 
   function handleClear() {
     setStrSearch('');
+    onclickSearchForm('');
     if (searchInput.current) {
       searchInput.current.value = '';
     }

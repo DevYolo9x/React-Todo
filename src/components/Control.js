@@ -7,7 +7,7 @@ function Control(props) {
   const task_name = useRef(null);
   const task_level = useRef(null);
 
-  const {isShowForm} = props;
+  const {isShowForm, onclickSearchForm} = props;
 
   let buttonForm = <button type="button" onClick={handleShowForm} className="btn btn-info btn-block"> Add Task </button>
   if( isShowForm === true ) {
@@ -19,11 +19,11 @@ function Control(props) {
       props.onclickToggleForm();
     }
   }
-
+  
   return (
     <div className="row">
 
-      <Search />
+      <Search onclickSearchForm={onclickSearchForm} />
       {/* SORT : START */}
       <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <div className="dropdown">
