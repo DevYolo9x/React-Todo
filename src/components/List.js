@@ -2,10 +2,16 @@ import React from 'react';
 import Item from './Item';
 
 function List(props) {
-  const listItem = props.items;
-  const itemPage = listItem.map((item, index) =>
-    <Item key={index} data={item} index={index}/>
+  const {items, onClickDelete} = props;
+  const itemPage = items.map((item, index) =>
+    <Item 
+    key={index} 
+    onClickDelete={onClickDelete} 
+    data={item} 
+    index={index}
+    />
   )
+  
   return (
     <div className="panel panel-success">
       <div className="panel-heading">List Task</div>

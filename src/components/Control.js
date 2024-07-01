@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import Search from './Search';
+import Sort from './Sort';
 
 
 function Control(props) {
@@ -7,7 +8,7 @@ function Control(props) {
   const task_name = useRef(null);
   const task_level = useRef(null);
 
-  const {isShowForm, onclickSearchForm} = props;
+  const {isShowForm, onclickSearchForm, orderBy, orderDir, onclickSort} = props;
 
   let buttonForm = <button type="button" onClick={handleShowForm} className="btn btn-info btn-block"> Add Task </button>
   if( isShowForm === true ) {
@@ -25,36 +26,11 @@ function Control(props) {
 
       <Search onclickSearchForm={onclickSearchForm} />
       {/* SORT : START */}
-      <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <div className="dropdown">
-          <button
-            className="btn btn-default dropdown-toggle"
-            type="button"
-            id="dropdownMenu1"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="true"
-          >
-            Sort by <span className="caret" />
-          </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li>
-              <a role="button">Name ASC</a>
-            </li>
-            <li>
-              <a role="button">Name DESC</a>
-            </li>
-            <li role="separator" className="divider" />
-            <li>
-              <a role="button">Level ASC</a>
-            </li>
-            <li>
-              <a role="button">Level DESC</a>
-            </li>
-          </ul>
-          <span className="label label-success label-medium">NAME - DESC</span>
-        </div>
-      </div>
+      <Sort 
+      onclickSort={onclickSort}
+      orderBy={orderBy}
+      orderDir={orderDir}
+      />
       {/* SORT : END */}
       {/* ADD : START */}
       <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">

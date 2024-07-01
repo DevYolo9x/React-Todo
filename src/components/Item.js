@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Item(props) {
-  const {data, index} = props;
+  const {data, index, onClickDelete} = props;
   var type = {
     0: 'Basic',
     1: 'Medium',
@@ -13,6 +13,11 @@ function Item(props) {
     1: 'label-warning',
     2: 'label-danger',
   }
+
+  function handleDelete(id) {
+    onClickDelete(id)
+  }
+
   return (
     <tr>
       <td className="text-center">{index+1}</td>
@@ -26,7 +31,7 @@ function Item(props) {
         <button type="button" className="btn btn-warning">
           Edit
         </button>
-        <button type="button" className="btn btn-danger">
+        <button type="button" onClick={() => handleDelete(data.id)} className="btn btn-danger">
           Delete
         </button>
       </td>
