@@ -57,9 +57,10 @@ function App(props) {
   }
 
   function handleDelete(id) {
+    console.log(id);
     // Delete - Sử dụng thư viện lodash
     itemOrigin = remove(itemOrigin, function(item) {
-      return item.id === id;
+      return item.id != id;
     });
     setItemOrigin(itemOrigin);
   }
