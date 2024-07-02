@@ -6,9 +6,14 @@ function From(props) {
   const task_name = useRef(null);
   const task_level = useRef(null);
 
+  let {itemSelected} = props;
+  let id = itemSelected ? itemSelected.id: "";
+  let name = itemSelected ? itemSelected.name: "";
+  let level = itemSelected ? itemSelected.level: "";
+
   const [formData, setFormData] = useState({
-    task_name: '',
-    task_level: '',
+    task_name: (itemSelected ? itemSelected.name:''),
+    task_level: (itemSelected ? itemSelected.level:''),
   });
 
   function handleCancel() {
@@ -28,12 +33,13 @@ function From(props) {
   function handleSubmit(event) {
     event.preventDefault();
     let item = {
-      id: uuidv4(),
+      id: id,
       name: formData.task_name,
       level: +formData.task_level,
     }
+    
     if( props.onclickHandleSubmit ) {
-      props.onclickHandleSubmit(item)
+      props.onclickHandleSubmit(item.id, item)
     }
   }
 
@@ -51,6 +57,7 @@ function From(props) {
               placeholder="Task Name"
               name="task_name"
               onChange={handleChange}
+              defaultValue={formData.task_name}
             />
           </div>
           <div className="form-group">
@@ -62,6 +69,7 @@ function From(props) {
               className="form-control"
               required="required"
               onChange={handleChange}
+              defaultValue={formData.task_level}
             >
               Small
               <option value={0}>Basic</option>

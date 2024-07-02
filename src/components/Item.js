@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Item(props) {
-  const {data, index, onClickDelete} = props;
+  const {data, index, onClickDelete, onClickEdit} = props;
   var type = {
     0: 'Basic',
     1: 'Medium',
@@ -17,6 +17,10 @@ function Item(props) {
   function handleDelete(id) {
     onClickDelete(id)
   }
+  
+  function handleEdit(item) {
+    onClickEdit(item)
+  }
 
   return (
     <tr>
@@ -28,7 +32,7 @@ function Item(props) {
         <span className={'label ' + label[data.level]}>{type[data.level]}</span>
       </td>
       <td>
-        <button type="button" className="btn btn-warning">
+        <button type="button" onClick={() => handleEdit(data)} className="btn btn-warning">
           Edit
         </button>
         <button type="button" onClick={() => handleDelete(data.id)} className="btn btn-danger">
