@@ -15,17 +15,24 @@ function App() {
   const [strSearch, setStrSearch] = useState('');
   const [orderBy, setOrderBy] = useState('level');
   const [orderDir, setOrderDir] = useState('desc');
-  let [itemOrigin, setItemOrigin] = useState(null);
+  let [itemOrigin, setItemOrigin] = useState(Task);
   let [itemSelected, setItemSelected] = useState([]);
   let elForm = null;
 
+   useEffect(() => {
+    localStorage.setItem('Task', JSON.stringify(itemOrigin));
+  }, [itemOrigin]);
+
 
   // Search - Sử dụng thư viện lodash
-  itemOrigin = filter(Task, function(item) { 
-    if( strSearch != '' && item.length ) {
-      return includes(item.name.toLowerCase(), strSearch.toLowerCase());
-    }
-  });
+  if( strSearch != '' ) {
+    itemOrigin = filter(itemOrigin, function(item) { 
+      if( item.length ) {
+        return includes(item.name.toLowerCase(), strSearch.toLowerCase());
+      }
+    });
+  }
+  
 
   // Sử dụng theo cách thông thường
   // if( strSearch.length > 0 ) {

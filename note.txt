@@ -8,3 +8,4 @@
 
 
 --> Sử dụng setFormData(prevState) để lưu nội dung vào state
+--> khi sử dụng filter(), map() sẽ thay đổi mảng trạng thái ban đầu.
