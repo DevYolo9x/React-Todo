@@ -5,3 +5,6 @@
 
 --> Cài thư viện lodash thực hiện cho việc lọc
 --> npm i --save lodash 
+
+
+--> Sử dụng setFormData(prevState) để lưu nội dung vào state

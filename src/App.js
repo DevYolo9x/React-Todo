@@ -3,24 +3,26 @@ import Title from './components/Title';
 import Control from './components/Control';
 import Form from './components/Form';
 import List from './components/List';
-import Task from './mocks/Task';
 import Student from './components/Student';
 import { v4 as uuidv4 } from 'uuid';
-import {filter, includes, orderBy as functionOrderBy, remove} from 'lodash';
+import {filter, includes, orderBy as functionOrderBy, remove, reject} from 'lodash';
 
-function App(props) {
+function App() {
+
+  const Task = JSON.parse(localStorage.getItem('Task')) || [];
   const [isShowForm, setIsShowForm] = useState(false);
   const [searchForm, setSearchForm] = useState('');
   const [strSearch, setStrSearch] = useState('');
   const [orderBy, setOrderBy] = useState('level');
   const [orderDir, setOrderDir] = useState('desc');
-  let [itemOrigin, setItemOrigin] = useState(Task);
+  let [itemOrigin, setItemOrigin] = useState(null);
   let [itemSelected, setItemSelected] = useState([]);
   let elForm = null;
 
+
   // Search - Sử dụng thư viện lodash
-  itemOrigin = filter(itemOrigin, function(item) { 
-    if( item.name.length ) {
+  itemOrigin = filter(Task, function(item) { 
+    if( strSearch != '' && item.length ) {
       return includes(item.name.toLowerCase(), strSearch.toLowerCase());
     }
   });
@@ -39,25 +41,30 @@ function App(props) {
   // Sort - Sử dụng thư viện lodash
   itemOrigin = functionOrderBy(itemOrigin, [orderBy], [orderDir]);
 
+  // Tắt/Mở form
   function handleToggleForm(){
     setIsShowForm(!isShowForm);
     setItemSelected(null);
   }
   
+  // Đóng form
   function handleCloseForm(){
     setIsShowForm(false);
     setItemSelected(null);
   }
 
+  // Sắp xếp bản ghi
   function handleSort(orderBy, orderDir){
     setOrderBy(orderBy);
     setOrderDir(orderDir);
   }
 
+  // Tìm kiếm bản ghi
   function handleGoSearchForm(value) {
     setStrSearch(value);
   }
 
+  // Xoá thông tin bản ghi
   function handleDelete(id) {
     // Delete - Sử dụng thư viện lodash
     itemOrigin = remove(itemOrigin, function(item) {
@@ -66,40 +73,47 @@ function App(props) {
     setItemOrigin(itemOrigin);
   }
   
+  // Cập nhật lại thông tin bản ghi
   function handleEdit(item){
     setItemSelected(item)
     setIsShowForm(true)
   }
 
+  // Thực hiện Tạo/Cập nhật bản ghi
   function handleSubmit(id, item){
     if( id !== '' ) {
-      itemOrigin.forEach((el, key) => {
-        if(el.id === id) {
-          //console.log(el);
-          itemOrigin[key].id = id;
-          itemOrigin[key].name = item.name;
-          itemOrigin[key].level = item.level;
-        }
-        setItemOrigin(itemOrigin);
-      })
+
+      // itemOrigin.forEach((el, key) => {
+      //   if(el.id === id) {
+      //     itemOrigin[key].id = id;
+      //     itemOrigin[key].name = item.name;
+      //     itemOrigin[key].level = item.level;
+      //   }
+      //   setItemOrigin(itemOrigin);
+      // })
+
+      itemOrigin = reject(itemOrigin, {id: id});
+      itemOrigin.push({id: id, name: item.name, level: item.level});
     } else {
       item.id = uuidv4();
       itemOrigin.push(item);
-      console.log(itemOrigin);
-      setItemOrigin(itemOrigin);
     }
-    setIsShowForm(false)
+    setItemOrigin(itemOrigin);
+    setIsShowForm(false);
+    localStorage.setItem('Task', JSON.stringify(itemOrigin));
   }
 
   useEffect(() => {
-  }, [strSearch]);
+    // let items = localStorage.getItem('Task');
+    // setItemOrigin(items);
+    // console.log(itemOrigin);
+  }, [strSearch, itemSelected]);
 
   if( isShowForm ) {
     elForm = <Form onclickCloseForm={handleCloseForm} onclickHandleSubmit={handleSubmit} itemSelected={itemSelected} />
   }
   
   return (
-
     <div className="container">
 
       {/* <Student /> */}

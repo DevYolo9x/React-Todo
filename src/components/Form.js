@@ -1,20 +1,18 @@
-import React, { useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect } from 'react';
 
 function From(props) {
-  const search = useRef(null);
-  const task_name = useRef(null);
-  const task_level = useRef(null);
 
   let {itemSelected} = props;
-  let id = itemSelected ? itemSelected.id: "";
-  let name = itemSelected ? itemSelected.name: "";
-  let level = itemSelected ? itemSelected.level: "";
 
-  const [formData, setFormData] = useState({
-    task_name: (itemSelected ? itemSelected.name:''),
-    task_level: (itemSelected ? itemSelected.level:''),
-  });
+  let [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    setFormData({
+      id: (itemSelected ? itemSelected.id:''),
+      task_name: itemSelected ? itemSelected.name : '',
+      task_level: itemSelected ? itemSelected.level : '',
+    });
+  }, [itemSelected]);
 
   function handleCancel() {
     if( props.onclickCloseForm ) {
@@ -23,17 +21,17 @@ function From(props) {
   }
 
   function handleChange(event) {
-      const {name, value, type} = event.target;
+      let {name, value} = event.target;
       setFormData((prevState) => ({
         ...prevState,
         [name]:value
       }))
-  }
+  } 
 
   function handleSubmit(event) {
     event.preventDefault();
     let item = {
-      id: id,
+      id: formData.id,
       name: formData.task_name,
       level: +formData.task_level,
     }
@@ -69,7 +67,7 @@ function From(props) {
               className="form-control"
               required="required"
               onChange={handleChange}
-              defaultValue={formData.task_level}
+              value={formData.task_level}
             >
               Small
               <option value={0}>Basic</option>
