@@ -27,11 +27,11 @@ function App() {
   // Search - Sử dụng thư viện lodash
   if( strSearch != '' ) {
     itemOrigin = filter(itemOrigin, function(item) { 
-      if( item.length ) {
         return includes(item.name.toLowerCase(), strSearch.toLowerCase());
-      }
     });
   }
+
+  console.log(itemOrigin);
   
 
   // Sử dụng theo cách thông thường
